@@ -39,13 +39,22 @@ public class CoteClient {
 
         dos = new DataOutputStream(bos);
 
-        int entierExport = 43712;
-        double doubleExport = 3.14;
+       /* int entierExport = 43712;
+        double doubleExport = 3.14; */
+
+        String Marque="Peugeot";
+        String Modele="e-208";
+        int Annee=2017;
+        int Kilometrage=22250;
 
         try {
             System.out.println("Envoi");
-            dos.writeInt(entierExport);
-            dos.writeDouble(doubleExport);
+            dos.writeInt(Marque.length());
+            dos.writeBytes(Marque);
+            dos.writeInt(Modele.length());
+            dos.writeBytes(Modele);
+            dos.writeInt(Annee);
+            dos.writeInt(Kilometrage);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
@@ -93,16 +102,28 @@ public class CoteClient {
             System.exit(-1);
         }
 
-        DataInputStream dis=null;
+      /*  DataInputStream dis=null;
         dis = new DataInputStream(bis);
 
         int EntierRecu;
-        double DoubleRecu;
+        double DoubleRecu; */
+        ObjectInputStream Ois=null;
+
+        String MarqueRecu[];
+        String ModeleRecu[];
+        int AnneeRecue[];
+        int KilometrageRecu[];
 
         try {
-            EntierRecu = dis.readInt();
+            Ois=new ObjectInputStream(bis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            MarqueRecu = Ois.readObject();
             DoubleRecu = dis.readDouble();
 
+            System.out.println("Reception réussie");
             System.out.println(
                     "EntierRecu = " + EntierRecu +
                             ",\t DoubleRecu = " + DoubleRecu
@@ -110,7 +131,11 @@ public class CoteClient {
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(-1);
         }
+
         try {
             dis.close();
         } catch (IOException e) {
