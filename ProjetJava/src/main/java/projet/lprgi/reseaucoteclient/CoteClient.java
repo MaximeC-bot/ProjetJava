@@ -24,9 +24,9 @@ public class CoteClient {
             System.exit(-1);
         }
 
-       // BufferedOutputStream bos = null;
+       BufferedOutputStream bos = null;
 
-      /*  try {
+      try {
             bos = new BufferedOutputStream(
                     maSocket.getOutputStream()
             );
@@ -116,7 +116,7 @@ public class CoteClient {
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
-        } */
+        }
 
 
     }

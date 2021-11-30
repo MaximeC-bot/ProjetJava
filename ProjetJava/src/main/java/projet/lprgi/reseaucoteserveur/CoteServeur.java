@@ -1,6 +1,7 @@
 package projet.lprgi.reseaucoteserveur;
 
 import java.io.*;
+import java.sql.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -39,6 +40,25 @@ public class CoteServeur {
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
+        }
+
+        String NomDriver= "com.mysql.cj.jdbc.Driver";
+        String BaseDeDonnees= "jdbc:mysql://localhost:3306/projet_java";
+
+        try {
+            Class.forName(NomDriver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.exit(-3);
+        }
+
+        Connection cnx=null;
+
+        try {
+            cnx= DriverManager.getConnection(BaseDeDonnees,"root", "root");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(-4);
         }
         /*
         DataInputStream dis=null;
